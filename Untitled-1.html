@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tehnici de Programare - Proiect realizat de Rață Delia</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #f0f8ff; /* AliceBlue */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4b0082; /* Indigo */
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffd700; /* Gold */
+        }
+
+        section {
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #4b0082; /* Indigo */
+        }
+
+        h3 {
+            color: #4b0082; /* Indigo */
+        }
+
+        p {
+            color: #666;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4b0082; /* Indigo */
+            color: #fff;
+        }
+
+        .code-box {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tehnici de Programare - Proiect realizat de Rață Delia</h1>
+
+    <nav>
+        <a href="#greedy">Metoda Greedy</a>
+        <a href="#backtracking">Metoda Backtracking</a>
+        <a href="#recursiva">Metoda Recursivă</a>
+        <a href="#trieri">Metoda Trierii</a>
+    </nav>
+
+    <section id="greedy">
+        <h2>Metoda Greedy</h2>
+        <p>Metoda Greedy este una dintre cele mai directe tehnici de proiectare a algoritmilor care poate fi aplicata la o gama larga de probleme. In general, aceasta moda se aplica problemelor de optimizare.
+            Majoritatea acestor probleme constau in determinarea unei submultimi B, a unei multimi A cu n elemente care sa indeplineasca anumite conditii pentru a fi acceptata.</p>
+        <h3>Exemple de Probleme:</h3>
+        <ul>
+            <li>Problema 1</li>
+            <p>Se dă o mulţime A={a1, a2, . . ., an} cu elemente reale. Să se
+                determine o submulţime S astfel încât suma elementelor submulţimii să fie
+                maximă.</p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream.h>
+                        float A[100],B[100];
+                        int n,m,i;
+                        void Greedy()
+                        { for(i=1;i<=n;i++)
+                        if (A[i]>=0)
+                        { m++;
+                        B[m]=A[i];
+                        }
+                        }
+                        main()
+                        { cout<<"n=";
+                        cin>>n;
+                        for(i=1;i<=n;i++)
+                        { cout<<"A["<< i<<"]=";
+                        cin>>A[i];
+                        }
+                        Greedy();
+                        for(i=1;i<=m;i++)
+                        cout<< B[i]<<" ";
+                        }
+                          <br>
+                </pre>
+            </div>
+
+            <li>Problema 2</li>
+            <p>Intr-o sală, într-o zi, trebuie planificate n spectacole. Pentru fiecare spectacol se cunoaşte
+                intervalul în care se desfăşoară: [st,sf). Se cere să se planifice un număr maxim de spectacole, astfel
+                încât să nu se suprapună. </p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream.h>
+                        int s[2][10],o[10],n,i,
+                        h1,m1,h2,m2,ora;
+                        void sortare()
+                        { int gata,m,i;
+                        do{ gata=1;
+                        for (i=1;i<=n-1;i++)
+                        if (s[1][o[i]]>
+                        s[1][o[i+1]])
+                        { m=o[i];
+                        o[i]=o[i+1];
+                        o[i+1]=m;
+                        gata=0;}}
+                        while (!gata);}
+                        main()
+                        { cout<<"n="; cin>>n;
+                        for (i=1;i<=n;i++)
+                        { o[i]=i;
+                        cout<<"ora de inceput
+                        pentru spectacolul "<<i
+                        <<"(hhmm)=";
+                        cin >>h1>>m1;
+                        s[0][i]=h1*60+m1;
+                        cout<<"ora de sfirsit
+                        pentru spectacolul "<<i
+                        <<"(hhmm)=";
+                        cin>>h2>>m2;
+                        s[1][i]=h2*60+m2; }
+                        sortare();
+                        cout<<"ordinea spectacolelor
+                        este "<< endl<< o[1]<< endl;
+                        ora=s[1][o[1]];
+                        for (i=2;i<=n;i++)
+                        { if (s[0][o[i]]>=ora)
+                        { cout<< o[i]<< endl;
+                        ora=s[1][o[i]];}} }  
+                    <br>
+                </pre>
+            </div>
+
+            <li>Problema 3</li>
+            <p>Se dau o mulţime A cu m numere întregi nenule şi o mulţime B cu n≥m numere întregi
+                nenule. Se cere să se selecteze un şir cu m elemente din B, x1, x2, ..., xm astfel încât expresia
+                următoare să fie maximă: E=a1x1+a2x2+...+anxn,
+                unde, a1, a2, ..., an sunt elementele mulţimii A într-o anumită ordine pe care trebuie s-o determinaţi.</p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream.h>
+                        int A[30],B[30],m,n,i,E;
+                        void Sort(int k, int X[20])
+                        { int inversari,man;
+                        do { inversari=0;
+                        for(i=1;i<=k-1;i++)
+                        if (X[i]>X[i+1])
+                        { man=X[i];
+                        X[i]=X[i+1];
+                        X[i+1]=man;
+                        inversari=1; } }
+                        while (inversari); }
+                        { cout<<"M="; cin>>m;
+                        for(i=1;i<=m;i++) cin>>A[i];
+                        cout<<"N="; cin>>n;
+                        for(i=1;i<=n;i++) cin>>B[i];
+                        Sort(m,A);
+                        Sort(n,B);
+                        for(i=1;i<=m;i++)
+                        E+=A[i]*B[n-m+i];
+                        cout<<"Emax="<< E;
+                        }  <br>
+                </pre>
+            </div>
+        </ul>
+    </section>
+
+    <section id="backtracking">
+        <h2> Metoda Backtracking</h2>
+        <p>Metoda backtracking se aplica algoritmilor pentru rezolvarea urmatoarelor tipuri de probleme: Find date n multimi S1, S2, ... Sn, fiecare avnd un numar nrsi de elemente, se cere găsirea elementelor vectorului X =(x1, x2, ... xn) € S=SIxS2x...Sn, astfel incât sã fie indeplinita o
+            anumita relatie (x1, x2, .., xn) intre elementele sale.</p>
+        <h3>Exemple de Probleme:</h3>
+        <ul>
+            <li>Problema 1</li>
+            <p>Fie n un număr natural nenul. Să se genereze permutările de n elemente.
+                Indicaţii: pentru poziţia curentă k din stivă, se parcurge întreg domeniul de valori {1,2,...,n} şi
+                după depunerea elementului curent, se verifică dacă valoarea este diferită de toate valorile
+                depuse anterior.</p>
+            <div class="code-box">
+                <pre class="code"> 
+                         #include < iostream>
+                         using namespace std;
+                         int n,st[20];
+                         void afiseaza(){
+                         for (int j=1;j<=n;j++)
+                         cout<< st[j]<<" ";
+                         cout<<"\n"; }
+                         int valid(int k){
+                         int sw= 1;
+                         for(int j=1; j=k-1; j++)
+                         if (st[j]=st[k])
+                         sw=0;
+                         return sw; }
+                         void back(int k){
+                         int i;
+                         for(i=1;i<=n;i++)
+                         {
+                         st[k]=i;
+                         if ( valid(k))
+                         if ( k=+n)
+                         afiseaza (); else back(k+1);} }
+                          int main()
+                          {
+                          cout<<"n="; cin>>n;
+                         back(1);
+                         return 0;
+                         } <br>
+                </pre>
+            </div>
+
+            <li>Problema 2</li>
+            <p>Fie n şi m două numere naturale nenule, mn. Să se genereze combinările de n
+                elemente luate câte m.
+                Indicaţii: diferenţa faţă de generarea aranjamentelor constă în faptul că se generează
+                elementele în ordine strict crescătoare.</p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream>
+                        using namespace std;
+                        int n,m,st[20];
+                         void afiseaza() {
+                         for (int j=1;j<=m;j++)
+                         cout<< st[j]<<" ";
+                         cout<<"\n"; }
+                         void back(int k){
+                         int i;
+                         for(i=st[k-1]+1;i<=n;i++) {
+                         st[k]=i;
+                         if (k==m)
+                         afiseaza();
+                         else back(k+1);  }}
+                         int main(){
+                         cout<<"n="; cin>>n; cout<<"m=";cin>>m;
+                         back(1);
+                         return 0; } <br>
+                </pre>
+            </div>
+
+            <li>Problema 3</li>
+            <p>Fie n şi m două numere naturale nenule, mn. Să se genereze aranjamentele de n
+                elemente luate câte m.
+                Indicaţii: diferenţa faţă de generarea permutărilor constă în condiţia de ieşire din apelul
+                recursiv, deoarece o soluţie este formată din m elemente</p>
+            <div class="code-box">
+                <pre class="code">
+                         #include < iostream>
+                         using namespace std;
+                         int n,m,st[20];
+                         void afiseaza()
+                         { for (int j=1;j<=m;j++)
+                         cout<< st[j]<<" ";
+                         cout<<"\n"; }
+                         int valid(int k){
+                         int sw=1;
+                         for(int j=1;j< k;j++)
+                         if (st[j]==st[k])
+                         sw=0;
+                         return sw;}
+                         void back(int k)
+                         { int i;
+                         for(i=1;i<=n;i++) {
+                         st[k]=i;
+                         if (valid(k))
+                         if (k==m)
+                         afiseaza();
+                         else back(k+1);}}
+                         int main(){
+                         cout<<"n=";cin>>n; cout<<"m=";cin>>m;
+                         back(1);
+                         return 0;}
+                        <br>
+                </pre>
+            </div>
+        </ul>
+    </section>
+
+    <section id="recursiva">
+        <h2>Metoda Recursivă</h2>
+        <p>Se numeste metoda trierii metoda ce identifică toate solutile unei probleme in dependenta de multimea solutiilor posibile. Toate solutile se indentifica prin valori, ce apartin tipurilor de date studiate: integer, boolean, enumerare sau subdomeniu. In probleme mai complicate este nevoie de a reprezenta aceste elemente prin tablouri, articole sau multimi.</p>
+        <h3>Exemple de Probleme:</h3>
+        <ul>
+            <li>Problema 1</li>
+            <p>Realizati un program ce foloseste o functie recursiva pentru a 
+                calcula cate cifre pare are un numar natural n.</p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream>
+                        using namespace std;
+                        int cif (int n ) {
+                        while (n!=0)
+                        if((n%10)%2==0) return 1+cif (n/10);
+                        else return cif(n/10);}
+                        int main(){}
+                        int n;
+                        cin>>n;
+                        cout<< cif (n); return 0;}
+                        <br>
+                </pre>
+            </div>
+
+            <li>Problema 2</li>
+            <p>calculul numarului de divizori pentru un nr natural n</p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream>
+                        using namespace std;                       
+                        int n;int d;
+                        int div(int n,int d){
+                        while(d>=1)
+                        if(n%d==0) return d+div(n,d-1);
+                        else return div(n,d-1);}
+                        int main (){
+                        cin>>n;
+                        cout<< div(n,n); return 0;}  
+                        <br>
+                </pre>
+            </div>
+
+            <li>Problema 3</li>
+            <p> Realizati un program ce foloseste o functie recursiva pentru a calcula
+                 cate cifre pare are numarul natural n </p>
+            <div class="code-box">
+                <pre class="code">
+                        #include < iostream>
+                        using namespace std;
+                        int nrcif(int n)
+                        { while (n!=0)                       
+                        if((n%10)%2==0)                       
+                        return 1+nrcif(n/10);                        
+                        else return nrcif(n/10);}                       
+                        int main ()                       
+                        { int n;                       
+                        cin>>n;                        
+                        cout<< nrcif(n);
+                        return 0;} <br>
+                </pre>
+            </div>
+        </ul>
+    </section>
+
+    <section id="trieri">
+        <h2>Metoda Trierii</h2>
+        <p>Metoda Trierii este o tehnică de aranjare a elementelor într-un anumit mod, de obicei crescător sau descrescător.</p>
+        <h3>Exemple de Probleme:</h3>
+        <ul>
+            <li>Problema 1</li>
+            <p>Un numar se numeste perfect daca este egal cu suma divizorilorlui, 
+                in afara de el insusi.Sa se afle numerele perfecte mai mici decatnumarul natural dat. </p>
+            <div class="code-box">
+                <pre class="code">
+                        var n,i,m,k,x; sum integer;
+                        function nrperfect(x integer):boolean;begin
+                        i=1; sum=0; repeat if(xmodi)=0 then
+                        sum=sum+i;i:=i+1 until i>(x div 2);
+                        if sum=x then nrperfect:=true
+                        else nrperfect=false; end ;
+                        procedure prelucrareasolutiei(x:integer);
+                        begin writeln(x); k=k+1; end ;
+                        begin k=0;readln(m); for x=1 to m-1 do if nrperfect(x)
+                        then prelucrareasolutiei(x);writeln('k=',k);end.<br>
+                </pre>
+            </div>
+
+            <li>Problema 2</li>
+            <p> Determinarea daca numarul n este prim. </p>
+            <div class="code-box">
+                <pre class="code">
+                        var N,i:  maxInt;
+                        boolean;
+                        real;
+                        begin writen(;Introduceti numarul N='); readin(N);
+                        T =true; R=sqr(N); i=2;
+                        while(i<=r) and t do begin
+                        If N mod i=0 then T=False; i=i+1; end;
+                        write(raspuns");
+                        if T then writeln("Numarul",N,' este prim');
+                        else writeln('Numarul ',N,' nu este prim);
+                        end. <br>
+                </pre>
+            </div>
+
+            <li>Problema 3</li>
+            <p> Sase determine care program determina cate numere prime sunt mai mari decat 
+                un numar naturaldat n.Daca se considera numarele naturale din multimea 
+                {0,1,2,3..n}</p>
+            <div class="code-box">
+                <pre class="code">
+                        var N, t, k integer;
+                        function prim(N:1..MaxInt): boolean;
+                        var i; 1. Maxint ;begin
+                        T=true; R=sqrt(N); I=2;
+                        while (i<=r) and t do begin
+                        if N mod i = 0 then T:=-false;1=1+1;
+                        prim=1; end; end;
+                        function SolutiePosibila(nr:longint) : boolean; 
+                        begin end;
+                        if prim(N) then SolutiePosibila:-true else 
+                        SolutiePosibila:-false
+                        procedure PrelucrareaSolutiei(N:longint);
+                        begin writeln (N=");
+                        k=k+1;end;
+                        begin write (*Dati t=") readin(t); for n:=0 to t do
+                        if SolutiePosibila(n) then PrelucrareaSolutiei(n);
+                        writeln(k=',k);end. <br>
+                </pre>
+            </div>
+        </ul>
+    </section>
+
+</body>
+</html>
